@@ -32,7 +32,7 @@ function build_regex() {
 
   for type in "${types[@]}"
   do
-    regexp="${regexp}$type|"
+    regexp="${regexp}$type|$type!|"
   done
 
   regexp="${regexp%|})(\(.+\))?: "
@@ -48,7 +48,7 @@ function print_error() {
   regular_expression=$2
   echo -e "\n\e[31m[Invalid Commit Message]"
   echo -e "------------------------\033[0m\e[0m"
-  echo -e "Valid types: \e[36m${types[@]}\033[0m"
+  echo -e "Valid types: \e[36m${types[@]/%/ !} \033[0m"
   echo -e "\e[37mActual commit message: \e[33m\"$commit_message\"\033[0m"
   echo -e "\e[37mExample valid commit message: \e[36m\"fix(subject): message\"\033[0m"
   echo -e "\e[37mRegex: \e[33m\"$regexp\"\033[0m"
